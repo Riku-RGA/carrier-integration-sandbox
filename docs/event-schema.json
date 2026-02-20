@@ -1,0 +1,12 @@
+{
+  "event_id": "string (UUID)",
+  "event_type": "string (BOOKING_CREATED | CONTAINER_ASSIGNED | GATE_IN | LOAD_ON_VESSEL | VESSEL_DEPARTED | VESSEL_ARRIVED | DISCHARGED | HOLD_APPLIED | HOLD_RELEASED | GATE_OUT | INVOICE_SUBMITTED | INVOICE_APPROVED | INVOICE_REJECTED)",
+  "event_time": "string (ISO 8601 timestamp)",
+  "source_system": "string",
+  "correlation_id": "string",
+  "shipment_id": "string",
+  "container_id": "string",
+  "vessel_voyage": "string",
+  "location_unlocode": "string",
+  "payload": {}
+}
