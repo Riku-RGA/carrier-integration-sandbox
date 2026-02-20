@@ -1,0 +1,18 @@
+{
+  "event_id": "11111111-1111-1111-1111-111111111111",
+  "event_type": "BOOKING_CREATED",
+  "event_time": "2026-02-20T09:00:00Z",
+  "source_system": "carrier_api",
+  "correlation_id": "BOOK12345",
+  "shipment_id": "SHIP12345",
+  "container_id": null,
+  "vessel_voyage": "MSC123A",
+  "location_unlocode": "NLRTM",
+  "payload": {
+    "shipper": "ACME BV",
+    "consignee": "Retail GmbH",
+    "incoterm": "FOB",
+    "commodity": "Electronics",
+    "weight_kg": 12000
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "event_id": "33333333-3333-3333-3333-333333333333",
+  "event_type": "GATE_IN",
+  "event_time": "2026-02-21T06:30:00Z",
+  "source_system": "terminal_system",
+  "correlation_id": "BOOK12345",
+  "shipment_id": "SHIP12345",
+  "container_id": "MSCU1234567",
+  "vessel_voyage": "MSC123A",
+  "location_unlocode": "NLRTM",
+  "payload": {
+    "terminal": "RWG Terminal",
+    "truck_license_plate": "NL-TRK-4587"
+  }
+}
