@@ -1,17 +1,23 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Dict, List, Literal, Optional
+from typing import Dict, List, Literal, Optional, Tuple
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-app = FastAPI(title="Carrier Integration Sandbox", version="0.2.0")
+app = FastAPI(title="Carrier Integration Sandbox", version="0.3.0")
 
 # In-memory storage (demo purpose)
 EVENTS: Dict[str, "Event"] = {}
 STATE_BY_SHIPMENT: Dict[str, str] = {}
 STATE_BY_CONTAINER: Dict[str, str] = {}
+
+# Technical idempotency
+PROCESSED_EVENT_IDS: set[str] = set()
+
+# Business idempotency
+PROCESSED_EVENT_KEYS: set[Tuple[str, str, str, str]] = set()
 
 EventType = Literal[
     "BOOKING_CREATED",
@@ -69,6 +75,15 @@ def allowed_next_event_types(current_state: Optional[str]) -> List[str]:
     return []
 
 
+def build_business_event_key(event: "Event") -> Tuple[str, str, str, str]:
+    return (
+        event.shipment_id,
+        event.event_type,
+        event.event_time.isoformat(),
+        event.container_id or "",
+    )
+
+
 class Event(BaseModel):
     event_id: str = Field(..., description="Unique event id")
     event_type: EventType
@@ -89,12 +104,26 @@ def health():
 
 @app.post("/webhook/events")
 def ingest_event(event: Event):
-    if event.event_id in EVENTS:
+    # Technical duplicate protection
+    if event.event_id in PROCESSED_EVENT_IDS:
         return {
             "status": "duplicate",
+            "duplicate_type": "event_id",
             "event_id": event.event_id,
             "shipment_id": event.shipment_id,
-            "new_state": STATE_BY_SHIPMENT.get(event.shipment_id),
+            "current_state": STATE_BY_SHIPMENT.get(event.shipment_id),
+        }
+
+    # Business duplicate protection
+    business_key = build_business_event_key(event)
+    if business_key in PROCESSED_EVENT_KEYS:
+        return {
+            "status": "duplicate",
+            "duplicate_type": "business_key",
+            "event_id": event.event_id,
+            "shipment_id": event.shipment_id,
+            "business_key": business_key,
+            "current_state": STATE_BY_SHIPMENT.get(event.shipment_id),
         }
 
     current_state = STATE_BY_SHIPMENT.get(event.shipment_id)
@@ -113,6 +142,9 @@ def ingest_event(event: Event):
         )
 
     EVENTS[event.event_id] = event
+    PROCESSED_EVENT_IDS.add(event.event_id)
+    PROCESSED_EVENT_KEYS.add(business_key)
+
     new_state = next_state_from_event(event.event_type)
 
     STATE_BY_SHIPMENT[event.shipment_id] = new_state
