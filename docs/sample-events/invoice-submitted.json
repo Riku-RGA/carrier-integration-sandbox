@@ -1,0 +1,15 @@
+{
+  "event_id": "99999999-9999-9999-9999-999999999999",
+  "event_type": "INVOICE_SUBMITTED",
+  "event_time": "2026-03-02T10:00:00Z",
+  "source_system": "billing_system",
+  "correlation_id": "BOOK12345",
+  "shipment_id": "SHIP12345",
+  "container_id": "MSCU1234567",
+  "vessel_voyage": "MSC123A",
+  "location_unlocode": "DEHAM",
+  "payload": {
+    "invoice_number": "INV-2026-0001",
+    "amount_eur": 1850.5
+  }
+}

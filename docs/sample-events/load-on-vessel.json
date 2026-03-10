@@ -1,0 +1,15 @@
+{
+  "event_id": "44444444-4444-4444-4444-444444444444",
+  "event_type": "LOAD_ON_VESSEL",
+  "event_time": "2026-02-21T18:00:00Z",
+  "source_system": "terminal_system",
+  "correlation_id": "BOOK12345",
+  "shipment_id": "SHIP12345",
+  "container_id": "MSCU1234567",
+  "vessel_voyage": "MSC123A",
+  "location_unlocode": "NLRTM",
+  "payload": {
+    "terminal": "RWG Terminal",
+    "load_reference": "LOAD78901"
+  }
+}

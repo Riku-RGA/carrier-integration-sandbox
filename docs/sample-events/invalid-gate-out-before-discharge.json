@@ -1,0 +1,14 @@
+{
+  "event_id": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+  "event_type": "GATE_OUT",
+  "event_time": "2026-02-25T08:15:00Z",
+  "source_system": "terminal_system",
+  "correlation_id": "BOOK99999",
+  "shipment_id": "SHIP99999",
+  "container_id": "MSCU9999999",
+  "vessel_voyage": "MSC999A",
+  "location_unlocode": "DEHAM",
+  "payload": {
+    "truck_license_plate": "DE-TRK-9999"
+  }
+}

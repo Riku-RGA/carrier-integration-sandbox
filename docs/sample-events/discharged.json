@@ -1,0 +1,14 @@
+{
+  "event_id": "77777777-7777-7777-7777-777777777777",
+  "event_type": "DISCHARGED",
+  "event_time": "2026-02-28T15:30:00Z",
+  "source_system": "terminal_system",
+  "correlation_id": "BOOK12345",
+  "shipment_id": "SHIP12345",
+  "container_id": "MSCU1234567",
+  "vessel_voyage": "MSC123A",
+  "location_unlocode": "DEHAM",
+  "payload": {
+    "terminal": "Hamburg Terminal"
+  }
+}
